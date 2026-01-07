@@ -1,12 +1,10 @@
-package ArrayList;
+package GenericArrayList;
 
-public class ListaDeArray {
+import java.util.ArrayList;
+
+public class GenericArrayList<T> {
+    private Object[] array = new Object[10];
     private int size = 0;
-    private int[] array = new int[10];
-
-    public final boolean isEmpty() {
-        return size == 0;
-    }
 
     private int getCapacity() {
         return array.length;
@@ -16,13 +14,17 @@ public class ListaDeArray {
         return size == getCapacity();
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 
-    private void grow() {
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public void grow() {
         if (isFull()) {
-            int[] newArray = new int[getCapacity() * 2];
+            Object[] newArray = new Object[getCapacity() * 2];
             for (int i = 0; i < size; i++) {
                 newArray[i] = array[i];
             }
@@ -30,26 +32,28 @@ public class ListaDeArray {
         }
     }
 
-    public int get(int index) {
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
         if (index < 0) throw new IndexOutOfBoundsException("The index cannot be negative.");
         if (index >= size) throw new IndexOutOfBoundsException("The index cannot be greater than the size of array.");
-        return array[index];
+        return (T) array[index];
     }
 
-    public void add(int value) {
+    public void add(T value) {
         if (isFull()) {
             grow();
         }
-        array[size] = value;
-        size++;
+        array[size++] = value;
     }
 
-    public void insertAt(int index, int value) {
+    public void insertAt(int index, T value) {
         if (index > size) throw new IndexOutOfBoundsException("The index cannot be greater than the size of array.");
         if (index < 0) throw new IndexOutOfBoundsException("The index cannot be negative.");
-        if (size == getCapacity()) {
+
+        if (isFull()) {
             grow();
         }
+
         for (int i = size - 1; i >= index; i--) {
             array[i + 1] = array[i];
         }
@@ -60,22 +64,24 @@ public class ListaDeArray {
     public void removeAt(int index) {
         if (index >= size) throw new IndexOutOfBoundsException("The index cannot be greater than the size of array.");
         if (index < 0) throw new IndexOutOfBoundsException("The index cannot be negative.");
+
         for (int i = index; i < size - 1; i++) {
             array[i] = array[i + 1];
         }
+        array[size - 1] = null;
         size--;
     }
 
-    public void updateAt(int index, int value) {
+    public void updateAt(int index, T value) {
         if (index >= size) throw new IndexOutOfBoundsException("The index cannot be greater than the size of array.");
         if (index < 0) throw new IndexOutOfBoundsException("The index cannot be negative.");
         array[index] = value;
     }
 
-    public int find(int value) {
+    public int find(T value) {
         for (int i = 0; i < size; i++) {
-            if (array[i] == value) {
-                return i;
+            if (array[i] != null) {
+                if (array[i].equals(value)) return i;
             }
         }
         return -1;

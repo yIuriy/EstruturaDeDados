@@ -1,7 +1,7 @@
-import ArrayList.ListaDeArray;
+import IntArrayList.IntArrayList;
 
 void main() {
-    ListaDeArray lista = new ListaDeArray();
+    IntArrayList lista = new IntArrayList();
 
     System.out.println("Lista vazia? " + lista.isEmpty());
 
