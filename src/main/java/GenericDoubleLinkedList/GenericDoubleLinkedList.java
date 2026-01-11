@@ -140,6 +140,16 @@ public class GenericDoubleLinkedList<T> implements Iterable<T> {
         }
     }
 
+    public T getFirst(){
+        if (isEmpty()) throw new NoSuchElementException();
+        return head.value;
+    }
+
+    public T getLast(){
+        if (isEmpty()) throw new NoSuchElementException();
+        return tail.value;
+    }
+
     public T get(int index) {
         if (index >= size) throw new IndexOutOfBoundsException("The index cannot be greater or equal than the size of" +
                 " list.");
