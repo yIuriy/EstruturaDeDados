@@ -4,7 +4,7 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class GenericStack<T> { // FILO LIFO
+public class GenericStack<T> implements Iterable<T>{ // FILO LIFO
     private Node<T> top;
     private int size = 0;
 

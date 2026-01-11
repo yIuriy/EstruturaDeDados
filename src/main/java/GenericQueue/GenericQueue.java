@@ -3,7 +3,7 @@ package GenericQueue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class GenericQueue<T> {
+public class GenericQueue<T> implements Iterable<T>{
     private Node<T> front;
     private Node<T> rear;
     private int size = 0;
